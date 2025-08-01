@@ -62,3 +62,8 @@ pip install -r requirements.txt
 
 Run the app:
 streamlit run app.py
+
+
+## 📊 Language Usage
+
+![Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=bsuryaprakash06&layout=pie&theme=radical)
