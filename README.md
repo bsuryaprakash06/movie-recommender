@@ -39,7 +39,7 @@ TMDB API
 <img src="screenshots/screenshot1.png" width="600"/>
 <img src="screenshots/screenshot2.png" width="600"/>
 
-> 🎨 Depth-styled white fonts, dark-pink theme, movie posters, autocomplete search
+> 🎨 Depth-styled white fonts, dark-blue theme, movie posters, autocomplete search
 
 ---
 
