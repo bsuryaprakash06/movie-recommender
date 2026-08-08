@@ -1,10 +1,16 @@
+import os
 import streamlit as st
 import pandas as pd
 import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-API_KEY = "96e50146e73e24e122673a8b5eae6e24"  
+# Load API key securely from Streamlit secrets or environment variables
+API_KEY = ""
+if hasattr(st, "secrets") and "TMDB_API_KEY" in st.secrets:
+    API_KEY = st.secrets["TMDB_API_KEY"]
+else:
+    API_KEY = os.getenv("TMDB_API_KEY", "")
 
 st.set_page_config(page_title="🎬 Movie Recommender", layout="wide")
 
@@ -13,7 +19,6 @@ with open("style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 st.markdown("<h1 class='main-title'>🎬 CineMatch: Your Movie Companion</h1>", unsafe_allow_html=True)
-
 
 # --- Load movie data ---
 @st.cache_data
@@ -35,10 +40,12 @@ similarity = compute_similarity(movies)
 
 # --- Poster Fetcher ---
 def fetch_poster(movie_title):
+    if not API_KEY:
+        return "https://via.placeholder.com/300x450?text=No+Image"
     try:
         search_url = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={movie_title}"
         res = requests.get(search_url).json()
-        if not res['results']:
+        if not res.get('results'):
             return "https://via.placeholder.com/300x450?text=No+Image"
 
         movie_id = res['results'][0]['id']
